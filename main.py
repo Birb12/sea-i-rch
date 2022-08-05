@@ -25,7 +25,7 @@ class NN(nn.Module):
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 input_size = 784
-num_grids = 10
+num_output = 2
 learning_rate = 0.001
 batch_size = 64
 num_epochs = 1
@@ -33,7 +33,7 @@ num_epochs = 1
 dataset = torchvision.datasets.MNIST(root='dataset/', train=True, transform=torchvision.transforms.ToTensor()) # placeholder
 dataload = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=True)
 
-model = NN(input_size, num_classes=num_grids).to(device) 
+model = NN(input_size, num_classes=num_output).to(device) 
 criterion = nn.CrossEntropyLoss() 
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
