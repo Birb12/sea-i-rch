@@ -6,7 +6,10 @@ import torch.utils.data
 import matplotlib.pyplot as plt
 import numpy as np
 
-transform = transforms.Compose([transforms.Resize((256, 256)), transforms.ToTensor()])
+custommean = 0.8132, 0.6343, 0.7334
+customstd = 0.0807, 0.1310, 0.0968
+
+transform = transforms.Compose([transforms.Resize((256, 256)), transforms.ToTensor(), transforms.Normalize(custommean, customstd)])
 
 data_direction = os.getcwd()
 trainingdata = os.path.join(data_direction, "training")
@@ -25,5 +28,5 @@ def show_images(train_dataset):
     plt.show()
     print('labels: ', labels)
 
-show_images(train_dataset)
 
+show_images(train_dataset)
