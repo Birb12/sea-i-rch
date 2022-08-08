@@ -4,6 +4,8 @@ import torchvision
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 
+# on a dataset with 250k images, this took my machine (Ryzen 5) 45 minutes to compute at 99% CPU; be warned
+
 path = os.path.join(os.getcwd(), "training")
 transform = transforms.Compose([transforms.Resize((256, 256)), transforms.ToTensor()])
 dataset = torchvision.datasets.ImageFolder(path, transform)
