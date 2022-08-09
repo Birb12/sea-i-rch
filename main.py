@@ -31,7 +31,7 @@ class ConvNetwork(nn.Module):
         
 
 
-custommean = 0.8132, 0.6343, 0.7334
+custommean = 0.8132, 0.6343, 0.7334 # generated via normalization.py
 customstd = 0.0807, 0.1310, 0.0968
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
