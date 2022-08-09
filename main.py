@@ -16,39 +16,58 @@ class ConvNetwork(nn.Module):
         self.layer1 = nn.Conv2d(3, 6, 5)
         self.poollayer = nn.MaxPool2d(2, 2)
         self.layer2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(16*5*5, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 2)
+        self.fc1 = nn.Linear(16*61*61, 40000)
+        self.fc2 = nn.Linear(40000, 14884)
+        self.fc3 = nn.Linear(14884, 2)
 
     def forward(self, x):
-        
+
         x = self.poollayer(F.relu(self.layer1(x)))
         x = self.poollayer(F.relu(self.layer2(x)))
-        x = x.view(-1, 16*5*5)
+        print(x.shape)
+        x = x.view(x.size(0), -1)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
+        return x
+
         
-
-
-custommean = 0.8132, 0.6343, 0.7334 # generated via normalization.py
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model = ConvNetwork().to(device)
+custommean = 0.8132, 0.6343, 0.7334
 customstd = 0.0807, 0.1310, 0.0968
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr = 1e-5)
 
-model = ConvNetwork().to(device)
 
 transform = transforms.Compose([transforms.Resize((256, 256)), transforms.ToTensor(), transforms.Normalize(custommean, customstd)])
-outputs = ("Cancer", "No Cancer")
+outputs = ("1", "0")
 
+
+numepoch = 2
 data_direction = os.getcwd()
 trainingdata = os.path.join(data_direction, "training")
 
 train_dataset = torchvision.datasets.ImageFolder(trainingdata, transform)
+loader = torch.utils.data.DataLoader(train_dataset, batch_size = 100, shuffle=True)
+
+def train():
+    for epoch in range(numepoch):
+        for images, labels in loader:
+            images = images.to(device)
+            labels = labels.to(device)
+
+            outputs = model(images)
+            loss = criterion(outputs, labels)
+
+            loss.backward()
+            optimizer.step()
+            optimizer.zero_grad()
+            print(loss)
 
 
 def show_images(train_dataset):
-    loader = torch.utils.data.DataLoader(train_dataset, batch_size = 50, shuffle=True)
     batch = next(iter(loader))
     images, labels = batch
 
@@ -59,5 +78,4 @@ def show_images(train_dataset):
     print('labels: ', labels)
 
 
-show_images(train_dataset)
-
+train()
