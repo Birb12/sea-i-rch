@@ -35,8 +35,8 @@ class ConvNetwork(nn.Module):
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = ConvNetwork().to(device)
 
-custommean = 0.8132, 0.6343, 0.7334
-customstd = 0.0807, 0.1310, 0.0968
+custommean = 0.7455, 0.5832, 0.6751
+customstd = 0.2143, 0.2036, 0.2033
 
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr = 0.001)
@@ -46,7 +46,7 @@ transform = transforms.Compose([transforms.Resize((50, 50)), transforms.ToTensor
 outputs = ("1", "0")
 
 
-numepoch = 7
+numepoch = 8
 data_direction = os.getcwd()
 trainingdata = os.path.join(data_direction, "test-train")
 least_loss = 1
