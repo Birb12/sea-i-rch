@@ -32,8 +32,8 @@ class ConvNetwork(nn.Module):
         x = self.fc3(x)
         return x
 
-custommean = 0.8132, 0.6343, 0.7334
-customstd = 0.0807, 0.1310, 0.0968
+custommean = 0.7455, 0.5832, 0.6751
+customstd = 0.2143, 0.2036, 0.2033
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 transform = transforms.Compose([transforms.ToTensor(), transforms.Resize((50, 50)), transforms.Normalize(custommean, customstd)])
@@ -55,4 +55,4 @@ def classify(model, imagetransforms, imagepath, classes):
     _, predicted = torch.max(output.data, 1)
     print(predicted.item())
 
-classify(model, transform, imagepath=r'C:\Users\mined\Desktop\projects\torch\test-train\1\9383_idx5_x2051_y1001_class1.png', classes=classes)
+classify(model, transform, imagepath=r'C:\Users\mined\Desktop\projects\torch\test-train\1\internet3.png', classes=classes)
