@@ -36,7 +36,7 @@ custommean = 0.7455, 0.5832, 0.6751
 customstd = 0.2143, 0.2036, 0.2033
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-transform = transforms.Compose([transforms.ToTensor(), transforms.Resize((50, 50)), transforms.Normalize(custommean, customstd)])
+transform = transforms.Compose([transforms.ToTensor(), transforms.Resize((50, 50)), transforms.Normalize(custommean, customstd), transforms.RandomRotation(degrees=(-20, +20))])
 model = ConvNetwork().to(device)
 classes = ("0", "1")
 model.load_state_dict(torch.load('current-best.pth'))
