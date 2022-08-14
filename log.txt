@@ -1,0 +1,12 @@
+- Upon completion of the prototype, model had 40% accuracy
+
+- Using a more sophisticated optimizer (adam) than Stochastic gradient descent bumped it up to 80% accuracy, respectable but not good
+
+- Challenge encountered: overfitting
+- While the model performed well on the images it was trained on, it had around a 20% accuracy on real world images
+- Fixed this by equalizing the amount of images that are cancer negative and positive, while also adding more transforms to images to make model account for outliers
+
+
+
+- Even after this, the model still performed poorly on real world data
+- VGGs
