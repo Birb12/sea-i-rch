@@ -9,4 +9,16 @@
 
 
 - Even after this, the model still performed poorly on real world data
-- VGGs
+
+
+- After reading some research papers on state-of-the-art architectures, I came across a tried-and-true model: a 19 layer CNN called VGG.
+
+- VGG took over continuous days to train on my CPU, and its results were less than fruitful. Its accuracy peaked at about 85%, while still impressive
+for a run-of-the-mill model, it had about the same accuracy as a standard CNN on the dataset, but a higher accuracy rate of about 80% on real world data.
+
+
+- After digging further, I came across an architecture known as EfficientNet B4. EfficientNets are renowned across the Artificial Intelligence 
+community, partially because they live up to their name. EfficientNets use around 6x less resources compared to models such as the VGG19, and
+achieve accuracy higher than any other Convolutional Neural Network ever seen. When implemented it peaked at a whopping 95% dataset accuracy,
+and it had around the same accuracy in real world data. I do not believe that there could be a more optimized, better CNN than that of the
+EfficientNet B4. I plan to transfer this to hardware and donate it to a cancer clinic for testing.
