@@ -2,6 +2,9 @@ import torch
 import torch.nn as nn
 from math import ceil
 
+
+# boilerplate efficientnet
+
 base_model = [
     [1, 16, 1, 1, 3],
     [6, 24, 2, 2, 3],
