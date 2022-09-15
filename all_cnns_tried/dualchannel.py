@@ -19,7 +19,7 @@ class make_cnn(nn.Module):
         self.conv_layers = self.create_conv_layers(change['curr'])
         
         self.fcs = nn.Sequential(
-            nn.Linear(512*7*7, 4096),
+            nn.LazyLinear(4096),
             nn.ReLU(),
             nn.Dropout(p=0.5),
             nn.Linear(4096, 2048),
@@ -73,15 +73,15 @@ custommean = 0.8132, 0.6343, 0.7334
 customstd = 0.0807, 0.1310, 0.0968
 numepoch = 8
 data_direction = os.getcwd()
-transform = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor(), transforms.Normalize(custommean, customstd)])
-trainingdata = os.path.join(data_direction, "test-train")
+transform = transforms.Compose([transforms.Resize((50, 50)), transforms.ToTensor(), transforms.Normalize(custommean, customstd)])
+trainingdata = os.path.join(data_direction, r"splitdataset\train")
 
 train_dataset = torchvision.datasets.ImageFolder(trainingdata, transform)
 loader = DataLoader(train_dataset, batch_size = 100, shuffle=True)
 
 model = make_cnn(in_channels=3, num_classes=2).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)
-criterion = nn.CrossEntropyLoss()
+criterion = nn.CrossEntropyLoss(weight=torch.tensor([1.0, 4.12]))
 least = 1
 
 
