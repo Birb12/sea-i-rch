@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import os
 import torchvision
-
+import torchvision.transforms.functional as TorchFunctional
 
 change = {
     'curr': [32, 'M', 64, 'M', 128, 128, 'M', 256, 'M', 512, 'M'],
@@ -69,11 +69,11 @@ class dualchannel(nn.Module):
         return x
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-custommean = 0.8132, 0.6343, 0.7334
-customstd = 0.0807, 0.1310, 0.0968
-numepoch = 8
+custommean = 0.7749, 0.6126, 0.6939
+customstd = 0.2206, 0.2156, 0.2119
+numepoch = 10
 data_direction = os.getcwd()
-transform = transforms.Compose([transforms.Resize((50, 50)), transforms.ToTensor(), transforms.Normalize(custommean, customstd)])
+transform = transforms.Compose([transforms.Resize((50, 50)), transforms.ToTensor()])
 trainingdata = os.path.join(data_direction, r"splitdataset\train")
 
 train_dataset = torchvision.datasets.ImageFolder(trainingdata, transform)
@@ -82,13 +82,15 @@ loader = DataLoader(train_dataset, batch_size = 100, shuffle=True)
 model = make_cnn(in_channels=3, num_classes=2).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)
 criterion = nn.CrossEntropyLoss(weight=torch.tensor([1.0, 4.12]))
-least = 1
+least = 999
 
 
 def train():
     for epoch in range(numepoch):
         for images, labels in loader:
             images = images.to(device)
+            images = TorchFunctional.adjust_hue(images, -0.1)
+            
             labels = labels.to(device)
             preds = model(images)
             loss = criterion(preds, labels)
@@ -105,6 +107,6 @@ def train():
 
 def save():
     print("saved")
-    torch.save(model.state_dict(), "bestdual.pth")
+    torch.save(model.state_dict(), "bestdualnonorm.pth")
 
 train()
