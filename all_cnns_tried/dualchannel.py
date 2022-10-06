@@ -87,6 +87,7 @@ least = 999
 
 def train():
     for epoch in range(numepoch):
+        print("EPOCH DONE")
         for images, labels in loader:
             images = images.to(device)
             images = TorchFunctional.adjust_hue(images, -0.1)
@@ -106,7 +107,6 @@ def train():
             print(loss.item())
 
 def save():
-    print("saved")
     torch.save(model.state_dict(), "bestdualnonorm.pth")
 
 train()
