@@ -90,8 +90,6 @@ def train():
         print("EPOCH DONE")
         for images, labels in loader:
             images = images.to(device)
-            images = TorchFunctional.adjust_hue(images, -0.1)
-            
             labels = labels.to(device)
             preds = model(images)
             loss = criterion(preds, labels)
@@ -107,6 +105,7 @@ def train():
             print(loss.item())
 
 def save():
+    print("saved")
     torch.save(model.state_dict(), "bestdualnonorm.pth")
 
 train()
