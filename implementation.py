@@ -56,8 +56,7 @@ class make_cnn(nn.Module):
                 
         return nn.Sequential(*layers)
 
-        
-
+# yes, this is ian a's code
 
 
 class dualchannel(nn.Module):
@@ -78,9 +77,10 @@ customstd = 0.0807, 0.1310, 0.0968
 numepoch = 8
 data_direction = os.getcwd()
 transform = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor(), transforms.Normalize(custommean, customstd)])
+
 trainingdata = os.path.join(data_direction, "test-train")
 classes = ("0", "1")
-
+ 
 train_dataset = torchvision.datasets.ImageFolder(trainingdata, transform)
 loader = torch.utils.data.DataLoader(train_dataset, batch_size = 100, shuffle=True)
 
@@ -97,6 +97,6 @@ def classify(model, imagetransforms, imagepath, classes):
 
     output = model(image)
     _, predicted = torch.max(output.data, 1)
-    print(predicted.item())
+    return predicted.item()
 
 classify(model, transform, imagepath=r'C:\Users\mined\Desktop\projects\torch\test-train\1\8863_idx5_x1201_y901_class1.png', classes=classes)
