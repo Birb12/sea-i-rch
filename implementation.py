@@ -56,7 +56,6 @@ class make_cnn(nn.Module):
                 
         return nn.Sequential(*layers)
 
-# yes, this is ian a's code
 
 
 class dualchannel(nn.Module):
