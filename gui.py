@@ -14,9 +14,10 @@ import torch.nn as nn
 import os
 from implementation import make_cnn
 
+# this is the GUI implementation of the model to be used by oncologists
 
-customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
-customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
+customtkinter.set_appearance_mode("System")  
+customtkinter.set_default_color_theme("blue")  
 
 prediction = "Waiting..."
 
