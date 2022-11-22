@@ -12,7 +12,7 @@ from math import ceil
 
 
 change = {
-    'curr': [32, 'M', 64, 'M', 128, 128, 'M', 256, 'M', 512, 'M'],
+    'curr': [32, 'M', 64, 'M', 128, 128, 'M', 256, 'M', 512, 'M'], # to allow for easy changes to the architecture
 }
 
 
@@ -58,7 +58,7 @@ class make_cnn(nn.Module):
 
 
 
-class dualchannel(nn.Module):
+class dualchannel(nn.Module): 
     def __init__(self):
         super(dualchannel, self).__init__()
         self.ConvNetA = make_cnn()
@@ -67,17 +67,17 @@ class dualchannel(nn.Module):
         x1 = self.ConvNetA.forward(x)
         x2 = self.ConvNetB.forward(x)
 
-        x = torch.cat((x1, x2), dim=1)
+        x = torch.cat((x1, x2), dim=1) 
         return x
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-custommean = 0.8132, 0.6343, 0.7334
+custommean = 0.8132, 0.6343, 0.7334 # calculated in normalization.py
 customstd = 0.0807, 0.1310, 0.0968
 numepoch = 8
 data_direction = os.getcwd()
 transform = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor(), transforms.Normalize(custommean, customstd)])
 
-trainingdata = os.path.join(data_direction, "test-train")
+trainingdata = os.path.join(data_direction, "test-train") # change to fit your directory
 classes = ("0", "1")
  
 train_dataset = torchvision.datasets.ImageFolder(trainingdata, transform)
@@ -88,7 +88,7 @@ model.load_state_dict(torch.load("bestdual.pth"))
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)
 criterion = nn.CrossEntropyLoss()
 
-def classify(model, imagetransforms, imagepath, classes):
+def classify(model, imagetransforms, imagepath, classes): # run one image through the model
     model = model.eval()
     image = Image.open(imagepath)
     image = imagetransforms(image).float()
