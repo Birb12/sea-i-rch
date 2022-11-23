@@ -4,11 +4,11 @@ Search is a research project dedicated to optimizing and applying Dual Channel C
 
 This project seeks to find novel algorithms and methods to better aply DC-CNNs on IDC classification and mitotic rate inferring. It also seeks to port the trained DC-CNN model on a microcontroller and design a microscope attachment that can easily read images from a microscope, feed images into the DC-CNN model, and give a diagnosis and mitotic rate via an OLED screen. This repository is for the software part of the project, where different models are used and experimented with.
 
-# Where is the paper?
+### Where is the paper?
 
 Currently, I am trying to obtain funding for the research project. Until then, I seek to withhold the paper from publication.
 
-# Why so many files?
+### Why so many files?
 
 This repository contains all files ever used for the research project, including boilerplate code for obtaining standard deviations of datasets and more. 
 
