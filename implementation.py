@@ -24,10 +24,10 @@ class make_cnn(nn.Module):
         
         self.fcs = nn.Sequential(
             nn.Linear(512*7*7, 4096),
-            nn.ReLU(),
+            nn.GELU(),
             nn.Dropout(p=0.5),
             nn.Linear(4096, 2048),
-            nn.ReLU(),
+            nn.GELU(),
             nn.Dropout(p=0.5),
             nn.Linear(2048, num_classes)
             )
