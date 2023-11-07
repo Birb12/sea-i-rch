@@ -21,9 +21,6 @@ customtkinter.set_default_color_theme("blue")
 
 prediction = "Waiting..."
 
-
-
-
 class App(customtkinter.CTk):
 
     WIDTH = 600
